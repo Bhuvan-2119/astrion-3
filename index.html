@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ASTRION </title>
+    <style>
+        /* Basic Reset and Styling */
+        body {
+            font-family: copperplate gothic, sans-serif;
+            background-color: black;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        h1 {
+            margin: 20px 0;
+            z-index: 1;
+            position: relative;
+        }
+
+        /* Galaxy Background */
+        #galaxy {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            overflow: hidden;
+            animation: galaxyAnimation 30s infinite linear;
+            background: linear-gradient(120deg, rgba(255, 0, 150, 0.5), rgba(0, 0, 255, 0.5), rgba(0, 255, 255, 0.5), rgba(255, 255, 0, 0.5), rgba(255, 0, 0, 0.5));
+            background-size: 400% 400%;
+        }
+
+        @keyframes galaxyAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Starry Background */
+        #stars {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkling 10s infinite ease-in-out alternate;
+            opacity: 0.5;
+        }
+
+        @keyframes twinkling {
+            0%, 100% {
+                transform: scale(0.5);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Solar System Container */
+        #solar-system {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        /* Pulsing Animation for All Planets */
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-align: center;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Sun Styling */
+        #sun {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, yellow 40%, orange 70%);
+            font-size: 18px;
+            font-family: 'Georgia', serif;
+            z-index: 10;
+            animation: pulse 3s infinite ease-in-out;
+            left: calc(50% - 60px); /* Center the sun */
+            top: calc(50% - 60px); /* Center the sun */
+        }
+
+        /* Orbit Animation */
+        @keyframes orbit {
+            from {
+                transform: rotate(0deg) translateX(200px) rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg) translateX(200px) rotate(-360deg);
+            }
+        }
+
+        /* Planet Specific Styling */
+        #mercury {
+            background: radial-gradient(circle, gray 30%, #a8a8a8 70%);
+            width: 30px;
+            height: 30px;
+            animation: orbit 10s linear infinite;
+            transform-origin: -200px;
+            font-size: 10px;
+        }
+
+        #venus {
+            background: radial-gradient(circle, orange 40%, #d99448 70%);
+            width: 40px;
+            height: 40px;
+            animation: orbit 15s linear infinite;
+            transform-origin: -250px;
+            font-size: 12px;
+        }
+
+        #earth {
+            background: radial-gradient(circle, blue 30%, green 60%);
+            width: 45px;
+            height: 45px;
+            animation: orbit 20s linear infinite;
+            transform-origin: -300px;
+            font-size: 13px;
+        }
+
+        #mars {
+            background: radial-gradient(circle, red 30%, #b05030 70%);
+            width: 35px;
+            height: 35px;
+            animation: orbit 25s linear infinite;
+            transform-origin: -350px;
+            font-size: 11px;
+        }
+
+        #jupiter {
+            background: radial-gradient(circle, brown 40%, #e0c090 70%);
+            width: 60px;
+            height: 60px;
+            animation: orbit 30s linear infinite;
+            transform-origin: -400px;
+            font-size: 18px;
+        }
+
+        #saturn {
+            background: radial-gradient(circle, gold 40%, #f0e68c 70%);
+            width: 55px;
+            height: 55px;
+            animation: orbit 35s linear infinite;
+            transform-origin: -450px;
+            font-size: 16px;
+        }
+
+        #uranus {
+            background: radial-gradient(circle, lightblue 40%, #8fd1e2 70%);
+            width: 40px;
+            height: 40px;
+            animation: orbit 40s linear infinite;
+            transform-origin: -500px;
+            font-size: 12px;
+        }
+
+        #neptune {
+            background: radial-gradient(circle, darkblue 40%, #1e3f66 70%);
+            width: 40px;
+            height: 40px;
+            animation: orbit 45s linear infinite;
+            transform-origin: -550px;
+            font-size: 12px;
+        }
+
+        /* Info Box Styling */
+        #info-box {
+            position: absolute;
+            background: transparent; /* Make the background transparent */
+            padding: 10px; /* You can adjust this as needed */
+            border-radius: 5px; /* Optional: if you want rounded corners */
+            color: white;
+            white-space: pre-line;
+            display: none;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            max-width: 200px;
+            z-index: 20;
+            box-shadow: none; /* Remove any box shadow, if present */
+        }
+
+        /* Unique Fonts for Each Planet's Info Box */
+        .font-mercury {
+            font-family: 'Courier New', monospace;
+        }
+        .font-venus {
+            font-family: 'Verdana', sans-serif;
+        }
+        .font-earth {
+            font-family: 'Times New Roman', serif;
+        }
+        .font-mars {
+            font-family: 'Impact', sans-serif;
+        }
+        .font-jupiter {
+            font-family: 'Georgia', serif;
+        }
+        .font-saturn {
+            font-family: 'Lucida Console', monospace;
+        }
+        .font-uranus {
+            font-family: 'Comic Sans MS', cursive;
+        }
+        .font-neptune {
+            font-family: 'Arial', sans-serif;
+        }
+        .font-sun {
+            font-family: 'Arial Black', Gadget, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1> ASTRION </h1>
+
+    <div id="galaxy"></div>
+    <div id="solar-system">
+        <div id="stars"></div>
+        <div id="sun" class="planet" onclick="showInfo('Sun')"><span>Sun</span></div>
+        <div id="mercury" class="planet" onclick="showInfo('Mercury')"><span>Mercury</span></div>
+        <div id="venus" class="planet" onclick="showInfo('Venus')"><span>Venus</span></div>
+        <div id="earth" class="planet" onclick="showInfo('Earth')"><span>Earth</span></div>
+        <div id="mars" class="planet" onclick="showInfo('Mars')"><span>Mars</span></div>
+        <div id="jupiter" class="planet" onclick="showInfo('Jupiter')"><span>Jupiter</span></div>
+        <div id="saturn" class="planet" onclick="showInfo('Saturn')"><span>Saturn</span></div>
+        <div id="uranus" class="planet" onclick="showInfo('Uranus')"><span>Uranus</span></div>
+        <div id="neptune" class="planet" onclick="showInfo('Neptune')"><span>Neptune</span></div>
+    </div>
+
+    <div id="info-box"></div>
+
+    <script>
+        const infoBox = document.getElementById('info-box');
+
+        // Planet information
+        const planetInfo = {
+            Sun: "Mass: 1.989 × 10^30 kg\nRadius: 696,340 km\nDensity: 1.41 g/cm³\nSpeed of Revolution: 220 km/s",
+            Mercury: "Mass: 3.285 × 10^23 kg\nRadius: 2,439.7 km\nDensity: 5.427 g/cm³\nSpeed of Revolution: 47.87 km/s",
+            Venus: "Mass: 4.867 × 10^24 kg\nRadius: 6,051.8 km\nDensity: 5.243 g/cm³\nSpeed of Revolution: 35.02 km/s",
+            Earth: "Mass: 5.972 × 10^24 kg\nRadius: 6,371 km\nDensity: 5.513 g/cm³\nSpeed of Revolution: 29.78 km/s",
+            Mars: "Mass: 6.417 × 10^23 kg\nRadius: 3,389.5 km\nDensity: 3.933 g/cm³\nSpeed of Revolution: 24.077 km/s",
+            Jupiter: "Mass: 1.898 × 10^27 kg\nRadius: 69,911 km\nDensity: 1.33 g/cm³\nSpeed of Revolution: 13.07 km/s",
+            Saturn: "Mass: 5.683 × 10^26 kg\nRadius: 58,232 km\nDensity: 0.687 g/cm³\nSpeed of Revolution: 9.69 km/s",
+            Uranus: "Mass: 8.681 × 10^25 kg\nRadius: 25,362 km\nDensity: 1.27 g/cm³\nSpeed of Revolution: 6.81 km/s",
+            Neptune: "Mass: 1.024 × 10^26 kg\nRadius: 24,622 km\nDensity: 1.638 g/cm³\nSpeed of Revolution: 5.43 km/s"
+        };
+
+        function showInfo(planet) {
+            infoBox.innerText = planetInfo[planet];
+            infoBox.className = `font-${planet.toLowerCase()}`;
+            infoBox.style.display = 'block';
+            infoBox.style.opacity = 1;
+
+            // Center the info box above the planet
+            const planetDiv = document.getElementById(planet.toLowerCase());
+            const rect = planetDiv.getBoundingClientRect();
+            infoBox.style.left = `${rect.left + window.scrollX + rect.width / 2 - infoBox.offsetWidth / 2}px`;
+            infoBox.style.top = `${rect.top + window.scrollY - infoBox.offsetHeight - 10}px`; // Adjust 10px for spacing
+
+            setTimeout(() => {
+                infoBox.style.opacity = 0;
+                setTimeout(() => {
+                    infoBox.style.display = 'none';
+                }, 500);
+            }, 3000); // Hide after 3 seconds
+        }
+
+        // Generate stars
+        function generateStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDuration = `${Math.random() * 5 + 5}s`; // Randomize twinkling speed
+                starsContainer.appendChild(star);
+            }
+        }
+
+        generateStars();
+    </script>
+</body>
+</html>
